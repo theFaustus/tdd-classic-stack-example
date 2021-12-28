@@ -1,5 +1,8 @@
 package com.evil.inc.tdd;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,8 +14,23 @@ public class CalculatorTest {
 
     @BeforeEach
     public void setup(){
-        System.out.println("calculator instantiated");
+        System.out.println("CalculatorTest.setup");
         calculator = new Calculator();
+    }
+
+    @BeforeAll
+    static void beforeAll() {
+        System.out.println("CalculatorTest.beforeAll");
+    }
+
+    @AfterAll
+    static void afterAll() {
+        System.out.println("CalculatorTest.afterAll");
+    }
+
+    @AfterEach
+    void tearDown() {
+        System.out.println("CalculatorTest.tearDown");
     }
 
     @Test
