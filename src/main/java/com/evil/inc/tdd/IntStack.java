@@ -1,65 +1,52 @@
 package com.evil.inc.tdd;
 
 public class IntStack {
-    private int size = 0;
+    public static final int DEFAULT_CAPACITY = 1;
+    private int size;
     private int capacity;
     private int[] elements;
-    private int top;
 
-    public IntStack(int capacity) {
-        if(capacity < 0){
-            throw new IllegalStackCapacityException("Capacity must be greater or equal than 0");
-        }
+    public IntStack(final int capacity) {
         this.capacity = capacity;
         this.elements = new int[capacity];
+    }
+
+    public IntStack() {
+        this.capacity = DEFAULT_CAPACITY;
+        this.elements = new int[DEFAULT_CAPACITY];
+    }
+
+
+    public boolean isEmpty() {
+        return size == 0;
     }
 
     public int size() {
         return size;
     }
 
-    public void push(int element) {
-        if (size == capacity) {
-            throw new StackOverflowException("Stack overflow exception");
+    public void push(final int element) {
+        if(size == capacity){
+            throw new IntStackOverflowException("Overflow");
         }
-        this.top = element;
-        this.elements[size++] = element;
+        elements[size++] = element;
     }
 
     public int pop() {
-        if (size == 0) {
-            throw new StackUnderflowException("Stack underflow exception");
+        if(size == 0){
+            throw new IntStackUnderflowException("Underflow");
         }
-        int element = elements[--size];
-        this.top = elements[size == 0 ? size : size - 1];
-        return element;
+        return elements[--size];
     }
 
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    public int top() {
-        if (size == 0) {
-            throw new StackUnderflowException("Stack underflow exception");
-        }
-        return this.top;
-    }
-
-    static class StackUnderflowException extends RuntimeException {
-        public StackUnderflowException(String message) {
+    private class IntStackOverflowException extends RuntimeException {
+        public IntStackOverflowException(final String message) {
             super(message);
         }
     }
 
-    static class StackOverflowException extends RuntimeException {
-        public StackOverflowException(String message) {
-            super(message);
-        }
-    }
-
-    static class IllegalStackCapacityException extends RuntimeException {
-        public IllegalStackCapacityException(String message) {
+    private class IntStackUnderflowException extends RuntimeException {
+        public IntStackUnderflowException(final String message) {
             super(message);
         }
     }
